@@ -1,0 +1,10 @@
+PRODUCER prod-group-id
+topic: topic_test
+key: mykeyq
+{ "id": 1, "temp": 100 }
+###
+
+CONSUMER consumer-group-id
+topic: new-patient
+partitions: 0
+from: 1
