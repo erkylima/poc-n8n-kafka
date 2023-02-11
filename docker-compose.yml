@@ -51,6 +51,8 @@ services:
       POSTGRES_USER: password
     networks: 
       - broker-kafka
+    volumes: 
+      - db:/var/lib/postgresql/data
   workflow:
     image: n8nio/n8n
     environment:
@@ -64,3 +66,19 @@ services:
       - "5678:5678"
     networks: 
       - broker-kafka
+
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - cache:/data
+    networks: 
+      - broker-kafka
+volumes:
+  db:
+    driver: local
+  cache:
+    driver: local
